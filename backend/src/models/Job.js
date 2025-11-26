@@ -78,3 +78,5 @@ const jobSchema = new mongoose.Schema({
     default: "Mid",
   },
 });
+
+module.exports = mongoose.model("Job", jobSchema);
