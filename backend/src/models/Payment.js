@@ -177,17 +177,17 @@ paymentSchema.index({ payment_status: 1 });
 paymentSchema.index({ processed_at: -1 });
 
 // Populate recruiter data
-paymentSchema.pre(/^find/, function(next) {
+paymentSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'recruiter_id',
-    select: 'company_name user_id',
+    path: "recruiter_id",
+    select: "company_name user_id",
     populate: {
-      path: 'user_id',
-      select: 'full_name email'
-    }
+      path: "user_id",
+      select: "full_name email",
+    },
   }).populate({
-    path: 'subscription_id',
-    select: 'plan_type start_date end_date'
+    path: "subscription_id",
+    select: "plan_type start_date end_date",
   });
   next();
 });
