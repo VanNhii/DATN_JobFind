@@ -63,11 +63,13 @@ const recruiterSubscriptionSchema = new mongoose.Schema(
 
 // Tạo các chỉ mục để tối ưu hóa truy vấn
 // chỉ mục này giúp tìm kiếm các gói dịch vụ của nhà tuyển dụng theo thời gian kết thúc gần nhất
-recruiterSubscriptionSchema.index({recruiter_id: 1, end_date: -1});
+recruiterSubscriptionSchema.index({ recruiter_id: 1, end_date: -1 });
 // chỉ mục này giúp tìm kiếm các gói dịch vụ theo trạng thái đăng ký
-recruiterSubscriptionSchema.index({subcription_status: 1});
+recruiterSubscriptionSchema.index({ subcription_status: 1 });
 // chỉ mục này giúp tìm kiếm các gói dịch vụ theo gói dịch vụ cụ thể
-recruiterSubscriptionSchema.index({service_plan_id: 1});
+recruiterSubscriptionSchema.index({ service_plan_id: 1 });
 
-
-module.exports = mongoose.model("RecruiterSubscription",recruiterSubscriptionSchema);
+module.exports = mongoose.model(
+  "RecruiterSubscription",
+  recruiterSubscriptionSchema
+);
