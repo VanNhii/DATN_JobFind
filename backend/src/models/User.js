@@ -24,13 +24,11 @@ const userSchema = new mongoose.Schema(
       select: false, // Không trả về trường mật khẩu trong các truy vấn mặc định
     },
 
-    social_id: {
-      type: String,
-      required: function () {
-        return !this.password; // Bắt buộc nếu không đăng nhập bằng mật khẩu
-      },
-      unique: true,
-    },
+  social_id: {
+    type: String,
+    // do not set `unique` here alone because we'll create a partial unique index below
+    // that only indexes documents where `social_id` exists and is not null.
+  },
 
     provider: {
       type: String,
@@ -60,7 +58,7 @@ const userSchema = new mongoose.Schema(
       },
     },
 
-    fist_name: {
+    first_name: {
       type: String,
       required: [true, "Please enter your first name"],
       trim: true,
@@ -179,7 +177,7 @@ userSchema.virtual("recruiter_profile", {
 
 // Ảo trường full name
 userSchema.virtual("full_name").get(function () {
-  return `${this.fist_name} ${this.last_name}`.trim();
+  return `${this.first_name} ${this.last_name}`.trim();
 });
 
 // Ảo trường is_verified
@@ -197,16 +195,16 @@ userSchema.virtual("is_active").get(function () {
 });
 
 // isModified cho phép kiểm tra xem hoạt động nào đó có bị thay đổi hay không hàm của mongoose
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) { // Bỏ next đi 
+    return; // nothing to do
   }
   // Nếu password bị thay đổi thì hash mật khẩu với bcrypt trước khi lưu vào cơ sở dữ liệu
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-// Đăng nhập với JWT và trả về id người dùng
+// Đăng nhập với JWT và trả về id người dùng -- trả về tạo token với jwt từ authController.js
 userSchema.methods.getSignedJwtToken = function () {
   return jwt.sign({ id: this._id, role: this.role }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
@@ -234,7 +232,7 @@ userSchema.methods.getResetPasswordToken = function () {
 
 //Xoá hồ sơ liên quan khi xóa người dùng
 
-userSchema.pre("remove", async function (next) {
+userSchema.pre("remove", async function () {
   // Xoá hồ sơ ứng viên liên quan
   if (this.role === "candidate") {
     await this.model("Candidate").deleteOne({ user_id: this._id });
@@ -242,9 +240,16 @@ userSchema.pre("remove", async function (next) {
     // Xoá hồ sơ nhà tuyển dụng liên quan
     await this.model("Recruiter").deleteOne({ user_id: this._id });
   }
-  next();
 });
 
 module.exports = mongoose.model("User", userSchema);
+
+// Create a partial unique index on social_id so that only documents with a
+// non-null social_id are indexed as unique. This prevents duplicate key errors
+// when multiple users do not have social_id set (or it's null).
+userSchema.index(
+  { social_id: 1 },
+  { unique: true, partialFilterExpression: { social_id: { $exists: true, $ne: null } } }
+);
 
 
