@@ -1,8 +1,4 @@
 const Candidate = require("../models/Candidate"); // Ứng viên
-const Job = require("../models/Job"); // Công việc
-const Application = require("../models/Application"); // Đơn ứng tuyển
-const Interview = require("../models/Interview"); // Phỏng vấn
-const Notification = require("../models/Notification"); // Thông báo
 
 // Lấy danh sách tất cả ứng viên (có phân trang, tìm kiếm)
 
