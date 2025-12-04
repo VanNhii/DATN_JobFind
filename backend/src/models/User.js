@@ -105,13 +105,13 @@ const userSchema = new mongoose.Schema(
     },
 
     // Token đặt lại mật khẩu
-    reset_password_token: {
+    resetPasswordToken: {
       type: String,
       default: null,
     },
 
     // Thời gian hết hạn của token đặt lại mật khẩu
-    reset_password_expires: {
+    resetPasswordExpire: {
       type: Date,
       default: null,
     },
@@ -159,7 +159,7 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Ảo quan hệ với mô hình CandidateProfile
+// Ảo quan hệ với mô hình CandidateProfile || dùng trong userController.js
 userSchema.virtual("candidate_profile", {
   ref: "CandidateProfile",
   localField: "_id",
@@ -167,7 +167,7 @@ userSchema.virtual("candidate_profile", {
   justOne: true,
 });
 
-// Ảo quan hệ với mô hình RecruiterProfile
+// Ảo quan hệ với mô hình RecruiterProfile || dùng trong userController.js
 userSchema.virtual("recruiter_profile", {
   ref: "Recruiter",
   localField: "_id",
