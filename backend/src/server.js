@@ -1,14 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/database");
+const connectDB = require("./config/database"); 
 //const errorHandler = require("./middleware/errorHandler");
 
-const authRoutes = require("./routes/authRoutes");
-const recruiterRoutes = require("./routes/recruiterRoutes");
-const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes"); 
 const errorHandler = require("./middleware/errorHandler");
-const candidateRoutes = require("./routes/candidateRoutes");
 
 const app = express();
 // 2. Kết nối DB
@@ -21,9 +18,6 @@ app.use(express.json()); // Quan trọng nhất để nhận email/pass
 // 4. Routes
 // Mọi request bắt đầu bằng /api/v1/auth sẽ chui vào authRoutes xử lý
 app.use(`/api/${process.env.API_VERSION}/auth`, authRoutes);
-app.use(`/api/${process.env.API_VERSION}/users`, userRoutes);
-app.use(`/api/${process.env.API_VERSION}/recruiters`, recruiterRoutes);
-app.use(`/api/${process.env.API_VERSION}/candidates`, candidateRoutes);
 
 // 5. Xử lý lỗi (Nên có để biết tại sao code lỗi)
 app.use(errorHandler);
