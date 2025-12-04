@@ -1,16 +1,26 @@
-require('dotenv').config();
-const express = require('express');
-const connectDB = require('./config/database.js');
-
+require("dotenv").config();
+const express = require("express");
+const cors = require("cors");
+const connectDB = require("./config/database");
+const errorHandler = require("./middlewares/errorHandler");
+const candidateRoutes = require("./routes/candidateRoutes");
+const app = express();
+// 2. Kết nối DB
 connectDB();
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+// 3. Middleware cơ bản
+app.use(cors({ origin: "*", credentials: true }));
+app.use(express.json()); // Quan trọng nhất để nhận email/pass
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+// 4. Routes
+// Mọi request bắt đầu bằng /api/v1/auth sẽ chui vào authRoutes xử lý
 
+app.use(`/api/${process.env.API_VERSION}/candidates`, candidateRoutes);
+
+// 5. Xử lý lỗi (Nên có để biết tại sao code lỗi)
+app.use(errorHandler);
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server đang chạy trên cổng ${PORT}`);
+  console.log(`Server Auth đang chạy trên port ${PORT}`);
 });
