@@ -248,22 +248,21 @@ const recruiterSchema = new mongoose.Schema(
 );
 
 // Trước khi thực hiện truy vấn tìm kiếm nhà tuyển dụng, tự động tìm kiếm thông tin user
-recruiterSchema.pre(/^find/, function (next) {
+recruiterSchema.pre(/^find/, async function () { // bỏ next đi 
   this.populate({
     path: "user_id",
     select: "username email full_name phone avatar_url is_verified is_active",
   });
-  next();
 });
 
-// Tạo bảng ảo với mô hình Jobs
+// Tạo bảng ảo với mô hình Jobs recruiterController
 recruiterSchema.virtual("jobs", {
   ref: "Job",
   localField: "_id",
   foreignField: "recruiter_id",
 });
 
-// Tạo bảng ảo với mô hình RecruiterSubscription
+// Tạo bảng ảo với mô hình RecruiterSubscription cho recruiterController
 recruiterSchema.virtual("subscriptions", {
   ref: "RecruiterSubscription",
   localField: "_id",
