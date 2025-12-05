@@ -284,7 +284,7 @@ const jobSchema = new mongoose.Schema(
 );
 
 // trước mỗi lần thực hiện truy vấn tìm kiếm, tự động populate thông tin nhà tuyển dụng và danh mục công việc
-jobSchema.pre(/^find/, function (next) {
+jobSchema.pre(/^find/,async function () { // Phải xoá next đi mới chạy đượcA
   this.populate({
     path: "recruiter_id",
     select: "company_name company_logo_url is_verified",
@@ -296,7 +296,6 @@ jobSchema.pre(/^find/, function (next) {
     path: "categories",
     select: "category_name description",
   });
-  next();
 });
 
 // Tạo bảng ảo với mô hình Application

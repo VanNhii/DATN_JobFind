@@ -45,6 +45,7 @@ exports.register = async (req, res, next) => {
     } else if (role === "recruiter") {
       await Recruiter.create({
         user_id: user._id,
+        company_email: req.body.company_email || user.email, // thêm vào nhỡ đâu có quên email cty thì cho thành y mail recruiter người đăng ký
         company_name: req.body.company_name || "Not specified",
         industry: req.body.industry || "Technology",
       }); // Thêm các trường khác nếu cần
@@ -409,7 +410,11 @@ exports.resendOTP = async (req, res, next) => {
     }
     // Tạo OTP và gửi email xác thực
     const otp = generateSecureOTP(); // tạo trong ultils/otpService.js
-
+    console.log(
+      `Generated OTP for ${email} (resend for ${type}): ${otp} -- ip : ${
+        req.ip
+      } -- user agent: ${req.get("User-Agent")}`
+    );
     // Cập nhật email_vertification trong User document
     user.email_verification = {
       code: otp,
