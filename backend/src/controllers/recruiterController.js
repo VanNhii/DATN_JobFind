@@ -2,6 +2,11 @@ const { get } = require("mongoose");
 const Recruiter = require("../models/Recruiter");
 const Job = require("../models/Job");
 const RecruiterSubscription = require("../models/RecruiterSubscription");
+const {
+  getPaginationParams,
+  applyPagination,
+  buildPaginationResponse,
+} = require("../utils/pagination");
 // @desc    Get all recruiters
 // @route   GET /api/v1/recruiters
 // @access  Private/Admin

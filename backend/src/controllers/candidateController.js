@@ -1,5 +1,11 @@
 const Candidate = require("../models/Candidate"); // Ứng viên
 
+const {
+  getPaginationParams,
+  applyPagination,
+  buildPaginationResponse,
+} = require("../utils/pagination");
+
 // Lấy danh sách tất cả ứng viên (có phân trang, tìm kiếm)
 
 // access: private, admin, recruiter
