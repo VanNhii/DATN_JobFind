@@ -78,7 +78,7 @@ const applicationSchema = new mongoose.Schema(
 applicationSchema.index({ job_id: 1, candidate_id: 1 }, { unique: true });
 
 // Tự động populate thông tin công việc và ứng viên khi truy vấn đơn ứng tuyển
-applicationSchema.pre(/^find/, function (next) {
+applicationSchema.pre(/^find/, function () {
   this.populate({
     path: "job_id",
     select: "title company_name location job_type salary_min salary_max",
@@ -94,7 +94,6 @@ applicationSchema.pre(/^find/, function (next) {
       select: "full_name email phone avatar_url",
     },
   });
-  next();
 });
 
 // tạo trường ảo để xem lịch sử trạng thái ứng tuyển

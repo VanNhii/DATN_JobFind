@@ -6,7 +6,7 @@ const cors = require("cors");
 const connectDB = require("./config/database");
 
 // Middlewares
-const errorHandler = require("./middlewares/errorHandler");
+const errorHandler = require("./middleware/errorHandler");
 
 // Routes
 const authRoutes = require("./routes/authRoutes");
