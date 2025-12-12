@@ -29,7 +29,7 @@ const trackActivity = (activityType, entityType = null) => {
               user_agent: req.get("User-Agent"),
             };
 
-            // Thêm mô tả nêu là hành động của admin
+            // Thêm mô tả nếu là hành động của admin
             if (activityType === "admin_action") {
               activityData.description = `${req.method} ${req.path}`;
             }
