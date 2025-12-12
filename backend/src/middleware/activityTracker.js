@@ -1,5 +1,5 @@
 const UserActivity = require("../models/UserActivity");
-const { getClientIP } = require("../utils/adminUtils");
+const { getClientIP } = require("../middleware/adminUtils");
 
 // Middleware để theo dõi hoạt động người dùng và quản trị viên
 const trackActivity = (activityType, entityType = null) => {
