@@ -1,5 +1,5 @@
 const express = require('express');
-const { protect, authorize, optionalAuth } = require('../middlewares/auth');
+const { protect, authorize, optionalAuth } = require('../middleware/auth');
 const { checkJobPostingLimit } = require('../middleware/subcriptions');
 const { getJobs, createJob, getJob, deleteJob, updateJob } = require('../controllers/jobController');
 
