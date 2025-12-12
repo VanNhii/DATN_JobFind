@@ -3,7 +3,7 @@ const User = require('../models/User');
 // @desc    Get all users
 // @route   GET /api/v1/users
 // @access  Private/Admin
-exports.getUsers = async (req, res) => {
+exports.getUsers = async (req, res, next) => {
   try {
     const users = await User.find()
       .select('-password -resetPasswordToken -resetPasswordExpire')

@@ -30,8 +30,8 @@ const buildPaginationResponse = (data, total, page, limit) => {
 // Apply pagination to mongoose query
 const applyPagination = (query, page, limit, skip) => {
   return query
-    .limit(limit)
-    .skip(skip)
+    .limit(limit) // Lấy số lượng bản ghi theo limit
+    .skip(skip) // Bỏ qua các bản ghi theo skip
     .sort('-created_at'); // Default sort by newest first
 };
 

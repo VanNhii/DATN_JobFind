@@ -88,23 +88,22 @@ const jobCategorySchema = new mongoose.Schema(
 );
 
 // Thiết lập quan hệ 1-n với chính nó để lấy danh mục con
-jobCategorySchema.virtual("subcategories", {
-  ref: "JobCategory",
-  localField: "_id",
-  foreignField: "parent_category_id",
-  justOne: false,
+jobCategorySchema.virtual('subcategories', {
+  ref: 'JobCategory',          // Tham chiếu CHÍNH BẢNG NÀY
+  localField: '_id',           // Lấy ID của category hiện tại
+  foreignField: 'parent_category_id'// Tìm các category có parent = ID này
 });
 
 // Đếm số lượng công việc trong mỗi danh mục
 jobCategorySchema.virtual('jobs_count', {
-  ref: 'Job',
-  localField: '_id',
-  foreignField: 'category_id',
-  count: true
+  ref: 'Job',                  // Tham chiếu bảng Job
+  localField: '_id',           // Lấy ID của category
+  foreignField: 'category_id', // Tìm Job có category_id = này
+  count: true                  // Chỉ đếm số lượng, không lấy data
 });
 
 // Middleware để tự động tạo slug từ category_name trước khi lưu
-jobCategorySchema.pre('save', function(next) {
+jobCategorySchema.pre('save',async function() {
   if (this.isModified('category_name') || this.isNew) {
     this.slug = this.category_name
       .toLowerCase()
@@ -112,7 +111,6 @@ jobCategorySchema.pre('save', function(next) {
       .replace(/\s+/g, '-')
       .trim();
   }
-  next();
 });
 
 // Index for better performance (category_name and slug already have unique: true)

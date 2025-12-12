@@ -8,6 +8,12 @@ const jobSchema = new mongoose.Schema(
       required: true,
     },
 
+      category_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "JobCategory",
+      required: true,
+    },
+
     title: {
       type: String,
       required: [true, "Job title is required"],
@@ -296,6 +302,7 @@ jobSchema.pre(/^find/,async function () { // Phải xoá next đi mới chạy �
     path: "categories",
     select: "category_name description",
   });
+  //
 });
 
 // Tạo bảng ảo với mô hình Application

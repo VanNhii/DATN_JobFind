@@ -28,7 +28,7 @@ const servicePlanSchema = new mongoose.Schema({
 
   plan_type: {
     type: String,
-    enum: ['basic', 'premium', 'enterprise'],
+    enum: ['free','basic', 'premium', 'enterprise'],
     required: [true, 'Please specify plan type']
   },
   // Object chứa các tính năng của gói dịch vụ
