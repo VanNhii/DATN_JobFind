@@ -1,6 +1,6 @@
 const express = require('express');
 const { protect, authorize, optionalAuth } = require('../middlewares/auth');
-const { checkJobPostingLimit } = require('../middleware/subcriptions');
+const { checkJobPostingLimit } = require('../middleware/subscriptions');
 const { getJobs, createJob, getJob, deleteJob, updateJob } = require('../controllers/jobController');
 
 const router = express.Router();
