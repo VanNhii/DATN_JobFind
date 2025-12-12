@@ -1,5 +1,13 @@
 const express = require('express');
 const { protect, authorize } = require('../middleware/auth');
+const {
+  getJobCategories,
+  getJobCategory,
+  createJobCategory,
+  updateJobCategory,
+  deleteJobCategory
+} = require('../controllers/jobCategoryController');
+const { logAdminAction } = require('../middleware/logAdminAction');
 
 const router = express.Router();
 

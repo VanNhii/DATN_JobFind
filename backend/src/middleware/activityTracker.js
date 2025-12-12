@@ -1,5 +1,5 @@
 const UserActivity = require("../models/UserActivity");
-const { getClientIP } = require("../utils/adminUtils");
+const { getClientIP } = require("../middleware/adminUtils");
 
 // Middleware để theo dõi hoạt động người dùng và quản trị viên
 const trackActivity = (activityType, entityType = null) => {
@@ -29,7 +29,7 @@ const trackActivity = (activityType, entityType = null) => {
               user_agent: req.get("User-Agent"),
             };
 
-            // Thêm mô tả nêu là hành động của admin
+            // Thêm mô tả nếu là hành động của admin
             if (activityType === "admin_action") {
               activityData.description = `${req.method} ${req.path}`;
             }
