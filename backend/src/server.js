@@ -5,7 +5,7 @@ const cors = require("cors");
 // Kết nối DB
 const connectDB = require("./config/database");
 
-// Middlewares
+// Middleware
 const errorHandler = require("./middleware/errorHandler");
 
 // Routes

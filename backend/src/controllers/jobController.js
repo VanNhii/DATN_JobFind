@@ -1,4 +1,5 @@
 const Job = require("../models/Job");
+const JobCategory = require("../models/JobCategory");
 const Recruiter = require("../models/Recruiter");
 const {
   getPaginationParams,
@@ -46,7 +47,7 @@ exports.getJobs = async (req, res, next) => {
     }
 
     const jobsQuery = Job.find(query)
-      .populate("category_id", "name")
+      .populate("git ", "name")
       .populate("recruiter_id", "company_name company_logo_url industry")
       .select("-applications -interviews")
       .sort("-created_at");
