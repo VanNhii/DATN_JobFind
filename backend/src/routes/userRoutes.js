@@ -22,4 +22,4 @@ router
   .put(updateUser)
   .delete(authorize("admin"), deleteUser);
 
-module.exports = router;
+ module.exports = router;

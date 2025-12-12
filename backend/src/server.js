@@ -13,6 +13,8 @@ const authRoutes = require("./routes/authRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
 const userRoutes = require("./routes/userRoutes");
 const candidateRoutes = require("./routes/candidateRoutes");
+const jobRoutes = require("./routes/jobRoutes");
+const jobCategoryRoutes = require("./routes/jobCategoryRoutes");
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.use(`/api/${process.env.API_VERSION}/auth`, authRoutes);
 app.use(`/api/${process.env.API_VERSION}/recruiters`, recruiterRoutes);
 app.use(`/api/${process.env.API_VERSION}/users`, userRoutes);
 app.use(`/api/${process.env.API_VERSION}/candidates`, candidateRoutes);
+app.use(`/api/${process.env.API_VERSION}/jobs`, jobRoutes);
+app.use(`/api/${process.env.API_VERSION}/job-categories`, jobCategoryRoutes);
 
 // 5. Xử lý lỗi chung
 app.use(errorHandler);

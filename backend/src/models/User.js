@@ -161,7 +161,7 @@ const userSchema = new mongoose.Schema(
 
 // Ảo quan hệ với mô hình CandidateProfile || dùng trong userController.js
 userSchema.virtual("candidate_profile", {
-  ref: "CandidateProfile",
+  ref: "Candidate",
   localField: "_id",
   foreignField: "user_id",
   justOne: true,
