@@ -112,7 +112,7 @@ const interviewSchema = new mongoose.Schema(
   }
 );
 // Truoc khi thuc hien find thi populate cac thong tin lien quan den application, recruiter va candidate
-interviewSchema.pre(/^find/, function (next) {
+interviewSchema.pre(/^find/, function () {
   //
   this.populate({
     path: "application_id", //okk đuonwfg d
@@ -134,7 +134,6 @@ interviewSchema.pre(/^find/, function (next) {
         select: "full_name email phone",
       },
     });
-  next();
 });
 // Tạo trường ảo để xem phản hồi phỏng vấn liên quan đến cuộc phỏng vấn
 interviewSchema.virtual("feedback", {

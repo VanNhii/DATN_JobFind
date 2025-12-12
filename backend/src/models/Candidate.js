@@ -257,12 +257,11 @@ const candidateSchema = new mongoose.Schema(
 
 // pre/^find/ là trước khi thuưc hiện các lệnh tìm kiếm như find, findOne
 // Mỗi khi truy vấn tìm kiếm Candidate, tự động populate thông tin User liên quan
-candidateSchema.pre(/^find/, async function() {
+candidateSchema.pre(/^find/, async function () {
   this.populate({
     path: "user_id",
     select: "username email full_name phone avatar_url is_verified is_active",
   });
-  
 });
 
 // Virtual for applications để xem các ứng viên đã nộp đơn cho những công việc nào
