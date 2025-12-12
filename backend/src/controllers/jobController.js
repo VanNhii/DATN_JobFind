@@ -1,5 +1,4 @@
 const Job = require("../models/Job");
-const JobCategory = require("../models/JobCategory");
 const Recruiter = require("../models/Recruiter");
 const {
   getPaginationParams,
